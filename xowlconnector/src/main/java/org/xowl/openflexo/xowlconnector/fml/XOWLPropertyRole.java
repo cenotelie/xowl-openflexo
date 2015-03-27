@@ -18,33 +18,34 @@
  *     Laurent Wouters - lwouters@xowl.org
  **********************************************************************/
 
-package org.xowl.openflexo.xowlconnector;
+package org.xowl.openflexo.xowlconnector.fml;
 
-import org.openflexo.foundation.fml.annotations.DeclareEditionActions;
-import org.openflexo.foundation.fml.annotations.DeclareFlexoRoles;
+import org.openflexo.foundation.fml.PropertyRole;
 import org.openflexo.foundation.fml.annotations.FML;
-import org.openflexo.foundation.technologyadapter.TypeAwareModelSlot;
 import org.openflexo.model.annotations.ImplementationClass;
 import org.openflexo.model.annotations.ModelEntity;
 import org.openflexo.model.annotations.XMLElement;
-import org.xowl.openflexo.xowlconnector.fml.*;
-import org.xowl.openflexo.xowlconnector.fml.editionaction.*;
-import org.xowl.openflexo.xowlconnector.model.XOWLOntology;
+import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleProperty;
 
 /**
- * Represents a model slot for the xOWL technology
+ * Represents the role of an OWL property
  *
  * @author Laurent Wouters
  */
-@DeclareFlexoRoles({XOWLIndividualRole.class, XOWLClassRole.class, XOWLDataPropertyRole.class, XOWLObjectPropertyRole.class, XOWLPropertyRole.class})
-@DeclareEditionActions({AddOWLIndividual.class, AddOWLClass.class, AddDataPropertyStatement.class, AddObjectPropertyStatement.class, AddRestrictionStatement.class, AddSubClassStatement.class})
 @ModelEntity
-@ImplementationClass(XOWLModelSlotImpl.class)
+@ImplementationClass(XOWLPropertyRole.XOWLPropertyRoleImpl.class)
 @XMLElement
-@FML("XOWLModelSlot")
-public interface XOWLModelSlot extends TypeAwareModelSlot<XOWLOntology, XOWLOntology> {
-
-    @Override
-    public XOWLTechnologyAdapter getModelSlotTechnologyAdapter();
-
+@FML("XOWLPropertyRole")
+public interface XOWLPropertyRole extends PropertyRole<XOWLEntityRoleProperty> {
+    /**
+     * The default implementation
+     */
+    public static abstract class XOWLPropertyRoleImpl extends PropertyRoleImpl<XOWLEntityRoleProperty> implements XOWLPropertyRole {
+        /**
+         * Initializes this instance
+         */
+        public XOWLPropertyRoleImpl() {
+            super();
+        }
+    }
 }

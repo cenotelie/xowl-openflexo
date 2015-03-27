@@ -51,11 +51,7 @@ public abstract class XOWLModelSlotImpl extends TypeAwareModelSlot.TypeAwareMode
 
     static {
         try {
-            MODEL_FACTORY = new ModelFactory(ModelContextLibrary.getCompoundModelContext(
-                    ObjectPropertyStatementRole.class, ObjectPropertyStatementActorReference.class, DataPropertyStatementRole.class,
-                    DataPropertyStatementActorReference.class, OWLClassRole.class, OWLDataPropertyRole.class,
-                    OWLObjectPropertyRole.class, OWLPropertyRole.class, StatementRole.class, SubClassStatementActorReference.class,
-                    SubClassStatementRole.class));
+            MODEL_FACTORY = new ModelFactory(ModelContextLibrary.getCompoundModelContext(XOWLClassRole.class, XOWLDataPropertyRole.class, XOWLObjectPropertyRole.class, XOWLPropertyRole.class));
         } catch (ModelDefinitionException e) {
             // TODO: report this error
             e.printStackTrace();
@@ -83,22 +79,16 @@ public abstract class XOWLModelSlotImpl extends TypeAwareModelSlot.TypeAwareMode
 
     @Override
     public <PR extends FlexoRole<?>> String defaultFlexoRoleName(Class<PR> patternRoleClass) {
-        if (OWLClassRole.class.isAssignableFrom(patternRoleClass)) {
+        if (XOWLClassRole.class.isAssignableFrom(patternRoleClass)) {
             return "class";
-        } else if (OWLIndividualRole.class.isAssignableFrom(patternRoleClass)) {
+        } else if (XOWLIndividualRole.class.isAssignableFrom(patternRoleClass)) {
             return "individual";
-        } else if (OWLPropertyRole.class.isAssignableFrom(patternRoleClass)) {
+        } else if (XOWLPropertyRole.class.isAssignableFrom(patternRoleClass)) {
             return "property";
-        } else if (OWLDataPropertyRole.class.isAssignableFrom(patternRoleClass)) {
+        } else if (XOWLDataPropertyRole.class.isAssignableFrom(patternRoleClass)) {
             return "dataProperty";
-        } else if (OWLObjectPropertyRole.class.isAssignableFrom(patternRoleClass)) {
+        } else if (XOWLObjectPropertyRole.class.isAssignableFrom(patternRoleClass)) {
             return "objectProperty";
-        } else if (DataPropertyStatementRole.class.isAssignableFrom(patternRoleClass)) {
-            return "fact";
-        } else if (ObjectPropertyStatementRole.class.isAssignableFrom(patternRoleClass)) {
-            return "fact";
-        } else if (SubClassStatementRole.class.isAssignableFrom(patternRoleClass)) {
-            return "fact";
         }
         return null;
     }

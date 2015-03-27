@@ -34,11 +34,6 @@ import java.util.List;
  */
 public class XOWLEntity extends XOWLObject implements IFlexoOntologyConcept<XOWLTechnologyAdapter> {
     /**
-     * IRI of the name property for the entities
-     */
-    private static final String NAME_PROPERTY = "http://xowl.org/openflexo/xowlconnector#name";
-
-    /**
      * The represented entity
      */
     protected final ProxyObject entity;

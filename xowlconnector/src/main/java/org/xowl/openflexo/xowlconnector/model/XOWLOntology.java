@@ -398,6 +398,59 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
         return entity;
     }
 
+    /**
+     * Instantiate a new individual in this ontology
+     *
+     * @param clazz The class to instantiate
+     * @return The new individual
+     */
+    public XOWLEntityRoleIndividual newIndividual(XOWLEntityRoleClass clazz) {
+        ProxyObject proxy = repository.newObject(backend);
+        proxy.setValue(Vocabulary.rdfType, clazz.entity);
+        XOWLEntity entity = new XOWLEntity(getTechnologyAdapter(), this, proxy);
+        entities.put(proxy, entity);
+        return new XOWLEntityRoleIndividual(entity);
+    }
+
+    /**
+     * Instantiate a new class in this ontology
+     *
+     * @return The new class
+     */
+    public XOWLEntityRoleClass newClass() {
+        ProxyObject proxy = repository.newObject(backend);
+        proxy.setValue(Vocabulary.rdfType, repository.getProxy(Vocabulary.owlClass));
+        XOWLEntity entity = new XOWLEntity(getTechnologyAdapter(), this, proxy);
+        entities.put(proxy, entity);
+        return new XOWLEntityRoleClass(entity);
+    }
+
+    /**
+     * Instantiate a new object property in this ontology
+     *
+     * @return The new object property
+     */
+    public XOWLEntityRoleObjectProperty newObjectProperty() {
+        ProxyObject proxy = repository.newObject(backend);
+        proxy.setValue(Vocabulary.rdfType, repository.getProxy(Vocabulary.owlObjectProperty));
+        XOWLEntity entity = new XOWLEntity(getTechnologyAdapter(), this, proxy);
+        entities.put(proxy, entity);
+        return new XOWLEntityRoleObjectProperty(entity);
+    }
+
+    /**
+     * Instantiate a new data property in this ontology
+     *
+     * @return The new data property
+     */
+    public XOWLEntityRoleDataProperty newDataProperty() {
+        ProxyObject proxy = repository.newObject(backend);
+        proxy.setValue(Vocabulary.rdfType, repository.getProxy(Vocabulary.owlDataProperty));
+        XOWLEntity entity = new XOWLEntity(getTechnologyAdapter(), this, proxy);
+        entities.put(proxy, entity);
+        return new XOWLEntityRoleDataProperty(entity);
+    }
+
     @Override
     public String toString() {
         return "OWLOntology:" + getURI();

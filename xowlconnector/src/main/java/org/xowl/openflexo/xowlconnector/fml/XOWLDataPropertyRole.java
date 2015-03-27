@@ -18,33 +18,34 @@
  *     Laurent Wouters - lwouters@xowl.org
  **********************************************************************/
 
-package org.xowl.openflexo.xowlconnector;
+package org.xowl.openflexo.xowlconnector.fml;
 
-import org.openflexo.foundation.fml.annotations.DeclareEditionActions;
-import org.openflexo.foundation.fml.annotations.DeclareFlexoRoles;
+import org.openflexo.foundation.fml.DataPropertyRole;
 import org.openflexo.foundation.fml.annotations.FML;
-import org.openflexo.foundation.technologyadapter.TypeAwareModelSlot;
 import org.openflexo.model.annotations.ImplementationClass;
 import org.openflexo.model.annotations.ModelEntity;
 import org.openflexo.model.annotations.XMLElement;
-import org.xowl.openflexo.xowlconnector.fml.*;
-import org.xowl.openflexo.xowlconnector.fml.editionaction.*;
-import org.xowl.openflexo.xowlconnector.model.XOWLOntology;
+import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleDataProperty;
 
 /**
- * Represents a model slot for the xOWL technology
+ * Represents the role of an OWL data property
  *
  * @author Laurent Wouters
  */
-@DeclareFlexoRoles({XOWLIndividualRole.class, XOWLClassRole.class, XOWLDataPropertyRole.class, XOWLObjectPropertyRole.class, XOWLPropertyRole.class})
-@DeclareEditionActions({AddOWLIndividual.class, AddOWLClass.class, AddDataPropertyStatement.class, AddObjectPropertyStatement.class, AddRestrictionStatement.class, AddSubClassStatement.class})
 @ModelEntity
-@ImplementationClass(XOWLModelSlotImpl.class)
+@ImplementationClass(XOWLDataPropertyRole.XOWLDataPropertyRoleImpl.class)
 @XMLElement
-@FML("XOWLModelSlot")
-public interface XOWLModelSlot extends TypeAwareModelSlot<XOWLOntology, XOWLOntology> {
-
-    @Override
-    public XOWLTechnologyAdapter getModelSlotTechnologyAdapter();
-
+@FML("XOWLDataPropertyRole")
+public interface XOWLDataPropertyRole extends DataPropertyRole<XOWLEntityRoleDataProperty> {
+    /**
+     * The default implementation
+     */
+    public static abstract class XOWLDataPropertyRoleImpl extends DataPropertyRoleImpl<XOWLEntityRoleDataProperty> implements XOWLDataPropertyRole {
+        /**
+         * Initializes this instance
+         */
+        public XOWLDataPropertyRoleImpl() {
+            super();
+        }
+    }
 }
