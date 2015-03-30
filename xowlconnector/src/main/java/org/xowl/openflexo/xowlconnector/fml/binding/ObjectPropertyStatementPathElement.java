@@ -18,34 +18,37 @@
  *     Laurent Wouters - lwouters@xowl.org
  ******************************************************************************/
 
-package org.xowl.openflexo.xowlconnector.fml;
+package org.xowl.openflexo.xowlconnector.fml.binding;
 
-import org.openflexo.foundation.fml.DataPropertyRole;
-import org.openflexo.foundation.fml.annotations.FML;
-import org.openflexo.model.annotations.ImplementationClass;
-import org.openflexo.model.annotations.ModelEntity;
-import org.openflexo.model.annotations.XMLElement;
-import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleDataProperty;
+import org.openflexo.connie.binding.BindingPathElement;
+import org.openflexo.foundation.ontology.IndividualOfClass;
+import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleObjectProperty;
+
+import java.lang.reflect.Type;
 
 /**
- * Represents the role of an OWL data property
+ * Represents a path element for an object property
  *
  * @author Laurent Wouters
  */
-@ModelEntity
-@ImplementationClass(XOWLDataPropertyRole.XOWLDataPropertyRoleImpl.class)
-@XMLElement
-@FML("XOWLDataPropertyRole")
-public interface XOWLDataPropertyRole extends DataPropertyRole<XOWLEntityRoleDataProperty> {
+public class ObjectPropertyStatementPathElement extends PropertyStatementPathElement {
     /**
-     * The default implementation
+     * Initializes this path element
+     *
+     * @param parent   The parent path element
+     * @param property The represented property
      */
-    abstract class XOWLDataPropertyRoleImpl extends DataPropertyRoleImpl<XOWLEntityRoleDataProperty> implements XOWLDataPropertyRole {
-        /**
-         * Initializes this instance
-         */
-        public XOWLDataPropertyRoleImpl() {
-            super();
-        }
+    ObjectPropertyStatementPathElement(BindingPathElement parent, XOWLEntityRoleObjectProperty property) {
+        super(parent, property);
+    }
+
+    @Override
+    public XOWLEntityRoleObjectProperty getProperty() {
+        return (XOWLEntityRoleObjectProperty) super.getProperty();
+    }
+
+    @Override
+    public Type getType() {
+        return IndividualOfClass.getIndividualOfClass(getProperty().getRange());
     }
 }

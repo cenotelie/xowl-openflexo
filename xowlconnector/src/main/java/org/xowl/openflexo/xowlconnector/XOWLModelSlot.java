@@ -1,4 +1,4 @@
-/**********************************************************************
+/*******************************************************************************
  * Copyright (c) 2015 Laurent Wouters
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -16,7 +16,7 @@
  *
  * Contributors:
  *     Laurent Wouters - lwouters@xowl.org
- **********************************************************************/
+ ******************************************************************************/
 
 package org.xowl.openflexo.xowlconnector;
 
@@ -28,7 +28,8 @@ import org.openflexo.model.annotations.ImplementationClass;
 import org.openflexo.model.annotations.ModelEntity;
 import org.openflexo.model.annotations.XMLElement;
 import org.xowl.openflexo.xowlconnector.fml.*;
-import org.xowl.openflexo.xowlconnector.fml.editionaction.*;
+import org.xowl.openflexo.xowlconnector.fml.editionaction.AddXOWLClass;
+import org.xowl.openflexo.xowlconnector.fml.editionaction.AddXOWLIndividual;
 import org.xowl.openflexo.xowlconnector.model.XOWLOntology;
 
 /**
@@ -37,7 +38,7 @@ import org.xowl.openflexo.xowlconnector.model.XOWLOntology;
  * @author Laurent Wouters
  */
 @DeclareFlexoRoles({XOWLIndividualRole.class, XOWLClassRole.class, XOWLDataPropertyRole.class, XOWLObjectPropertyRole.class, XOWLPropertyRole.class})
-@DeclareEditionActions({AddOWLIndividual.class, AddOWLClass.class, AddDataPropertyStatement.class, AddObjectPropertyStatement.class, AddRestrictionStatement.class, AddSubClassStatement.class})
+@DeclareEditionActions({AddXOWLIndividual.class, AddXOWLClass.class})
 @ModelEntity
 @ImplementationClass(XOWLModelSlotImpl.class)
 @XMLElement
@@ -45,6 +46,5 @@ import org.xowl.openflexo.xowlconnector.model.XOWLOntology;
 public interface XOWLModelSlot extends TypeAwareModelSlot<XOWLOntology, XOWLOntology> {
 
     @Override
-    public XOWLTechnologyAdapter getModelSlotTechnologyAdapter();
-
+    XOWLTechnologyAdapter getModelSlotTechnologyAdapter();
 }

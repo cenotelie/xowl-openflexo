@@ -1,4 +1,4 @@
-/**********************************************************************
+/*******************************************************************************
  * Copyright (c) 2015 Laurent Wouters
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -16,7 +16,7 @@
  *
  * Contributors:
  *     Laurent Wouters - lwouters@xowl.org
- **********************************************************************/
+ ******************************************************************************/
 
 package org.xowl.openflexo.xowlconnector.fml;
 
@@ -40,7 +40,7 @@ public interface XOWLClassRole extends ClassRole<XOWLEntityRoleClass> {
     /**
      * The default implementation
      */
-    public static abstract class XOWLClassRoleImpl extends ClassRoleImpl<XOWLEntityRoleClass> implements XOWLClassRole {
+    abstract class XOWLClassRoleImpl extends ClassRoleImpl<XOWLEntityRoleClass> implements XOWLClassRole {
         /**
          * Initializes this instance
          */

@@ -18,34 +18,20 @@
  *     Laurent Wouters - lwouters@xowl.org
  ******************************************************************************/
 
-package org.xowl.openflexo.xowlconnector.fml;
+package org.xowl.openflexo.xowlconnector.fml.editionaction;
 
-import org.openflexo.foundation.fml.DataPropertyRole;
-import org.openflexo.foundation.fml.annotations.FML;
-import org.openflexo.model.annotations.ImplementationClass;
+import org.openflexo.foundation.fml.editionaction.TechnologySpecificAction;
 import org.openflexo.model.annotations.ModelEntity;
-import org.openflexo.model.annotations.XMLElement;
-import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleDataProperty;
+import org.xowl.openflexo.xowlconnector.XOWLModelSlot;
+import org.xowl.openflexo.xowlconnector.model.XOWLObject;
 
 /**
- * Represents the role of an OWL data property
+ * Represents an action on a xOWL ontology
  *
+ * @param <T> The type of object interacted with
  * @author Laurent Wouters
  */
-@ModelEntity
-@ImplementationClass(XOWLDataPropertyRole.XOWLDataPropertyRoleImpl.class)
-@XMLElement
-@FML("XOWLDataPropertyRole")
-public interface XOWLDataPropertyRole extends DataPropertyRole<XOWLEntityRoleDataProperty> {
-    /**
-     * The default implementation
-     */
-    abstract class XOWLDataPropertyRoleImpl extends DataPropertyRoleImpl<XOWLEntityRoleDataProperty> implements XOWLDataPropertyRole {
-        /**
-         * Initializes this instance
-         */
-        public XOWLDataPropertyRoleImpl() {
-            super();
-        }
-    }
+@ModelEntity(isAbstract = true)
+public interface XOWLAction<T extends XOWLObject> extends TechnologySpecificAction<XOWLModelSlot, T> {
+
 }

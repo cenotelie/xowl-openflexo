@@ -1,4 +1,4 @@
-/**********************************************************************
+/*******************************************************************************
  * Copyright (c) 2015 Laurent Wouters
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as
@@ -16,7 +16,7 @@
  *
  * Contributors:
  *     Laurent Wouters - lwouters@xowl.org
- **********************************************************************/
+ ******************************************************************************/
 package org.xowl.openflexo.xowlconnector.model;
 
 import org.openflexo.foundation.ontology.IFlexoOntology;
@@ -78,5 +78,19 @@ public class XOWLEntityRoleClass extends XOWLEntity implements IFlexoOntologyCla
     @Override
     public boolean isRootConcept() {
         return entity.getIRIString().equals(Vocabulary.owl + "Thing");
+    }
+
+    /**
+     * Gets the properties that have this class as domain
+     *
+     * @return The properties that have this class as domain
+     */
+    public Collection<XOWLEntityRoleProperty> getProperties() {
+        Collection<XOWLEntityRoleProperty> result = new ArrayList<>();
+        Collection<ProxyObject> proxies = entity.getObjectsFrom(Vocabulary.rdfsDomain);
+        for (ProxyObject proxy : proxies) {
+            result.add(ontology.getProperty(proxy.getIRIString()));
+        }
+        return result;
     }
 }
