@@ -28,18 +28,18 @@ import org.xowl.store.Vocabulary;
  *
  * @author Laurent Wouters
  */
-public class XOWLEntityRoleObjectProperty extends XOWLEntityRoleProperty implements IFlexoOntologyObjectProperty<XOWLTechnologyAdapter> {
+public class XOWLObjectProperty extends XOWLProperty implements IFlexoOntologyObjectProperty<XOWLTechnologyAdapter> {
     /**
      * Initializes this object property role for an entity
      *
      * @param entity The represented entity
      */
-    public XOWLEntityRoleObjectProperty(XOWLEntity entity) {
+    public XOWLObjectProperty(XOWLEntity entity) {
         super(entity);
     }
 
     @Override
-    public XOWLEntityRoleClass getRange() {
-        return new XOWLEntityRoleClass(ontology.resolve(entity.getObjectValue(Vocabulary.rdfsRange)));
+    public XOWLClass getRange() {
+        return new XOWLClass(ontology.resolve(entity.getObjectValue(Vocabulary.rdfsRange)));
     }
 }

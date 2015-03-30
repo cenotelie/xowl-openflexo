@@ -28,8 +28,8 @@ import org.openflexo.model.annotations.ImplementationClass;
 import org.openflexo.model.annotations.ModelEntity;
 import org.openflexo.model.annotations.XMLElement;
 import org.xowl.openflexo.xowlconnector.XOWLModelSlot;
-import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleClass;
-import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleIndividual;
+import org.xowl.openflexo.xowlconnector.model.XOWLClass;
+import org.xowl.openflexo.xowlconnector.model.XOWLIndividual;
 import org.xowl.openflexo.xowlconnector.model.XOWLOntology;
 
 /**
@@ -41,23 +41,23 @@ import org.xowl.openflexo.xowlconnector.model.XOWLOntology;
 @ImplementationClass(AddXOWLIndividual.AddXOWLIndividualImpl.class)
 @XMLElement
 @FML("AddXOWLIndividual")
-public interface AddXOWLIndividual extends AddIndividual<XOWLModelSlot, XOWLEntityRoleIndividual>, XOWLAction<XOWLEntityRoleIndividual> {
+public interface AddXOWLIndividual extends AddIndividual<XOWLModelSlot, XOWLIndividual>, XOWLAction<XOWLIndividual> {
     /**
      * The default implementation
      */
-    abstract class AddXOWLIndividualImpl extends AddIndividualImpl<XOWLModelSlot, XOWLEntityRoleIndividual> implements AddXOWLIndividual {
+    abstract class AddXOWLIndividualImpl extends AddIndividualImpl<XOWLModelSlot, XOWLIndividual> implements AddXOWLIndividual {
         @Override
-        public XOWLEntityRoleClass getOntologyClass() {
-            return (XOWLEntityRoleClass) super.getOntologyClass();
+        public XOWLClass getOntologyClass() {
+            return (XOWLClass) super.getOntologyClass();
         }
 
         @Override
-        public Class<XOWLEntityRoleIndividual> getOntologyIndividualClass() {
-            return XOWLEntityRoleIndividual.class;
+        public Class<XOWLIndividual> getOntologyIndividualClass() {
+            return XOWLIndividual.class;
         }
 
         @Override
-        public XOWLEntityRoleIndividual execute(FlexoBehaviourAction action) {
+        public XOWLIndividual execute(FlexoBehaviourAction action) {
             return getModelSlotInstance(action).getAccessedResourceData().newIndividual(getOntologyClass());
         }
 

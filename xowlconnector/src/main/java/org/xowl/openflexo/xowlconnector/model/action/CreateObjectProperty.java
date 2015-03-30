@@ -27,7 +27,7 @@ import org.openflexo.foundation.action.FlexoActionType;
 import org.openflexo.foundation.ontology.DuplicateURIException;
 import org.openflexo.toolbox.StringUtils;
 import org.xowl.openflexo.xowlconnector.model.XOWLEntity;
-import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleObjectProperty;
+import org.xowl.openflexo.xowlconnector.model.XOWLObjectProperty;
 import org.xowl.openflexo.xowlconnector.model.XOWLObject;
 import org.xowl.openflexo.xowlconnector.model.XOWLOntology;
 
@@ -61,7 +61,7 @@ public class CreateObjectProperty extends FlexoAction<CreateObjectProperty, XOWL
 
     static {
         FlexoObjectImpl.addActionForClass(CreateObjectProperty.ACTION_TYPE, XOWLOntology.class);
-        FlexoObjectImpl.addActionForClass(CreateObjectProperty.ACTION_TYPE, XOWLEntityRoleObjectProperty.class);
+        FlexoObjectImpl.addActionForClass(CreateObjectProperty.ACTION_TYPE, XOWLObjectProperty.class);
     }
 
     /**
@@ -71,7 +71,7 @@ public class CreateObjectProperty extends FlexoAction<CreateObjectProperty, XOWL
     /**
      * The new object property
      */
-    private XOWLEntityRoleObjectProperty property;
+    private XOWLObjectProperty property;
 
     /**
      * Initializes this action

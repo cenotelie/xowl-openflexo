@@ -26,8 +26,8 @@ import org.openflexo.connie.binding.SimplePathElement;
 import org.openflexo.foundation.fml.TechnologySpecificCustomType;
 import org.openflexo.foundation.ontology.IndividualOfClass;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapterBindingFactory;
-import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleClass;
-import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleProperty;
+import org.xowl.openflexo.xowlconnector.model.XOWLClass;
+import org.xowl.openflexo.xowlconnector.model.XOWLProperty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,15 +40,15 @@ import java.util.List;
 public class XOWLBindingFactory extends TechnologyAdapterBindingFactory {
     @Override
     protected SimplePathElement makeSimplePathElement(Object object, BindingPathElement parent) {
-        if ((parent.getType() instanceof IndividualOfClass) && (object instanceof XOWLEntityRoleProperty)) {
-            return PropertyStatementPathElement.makePropertyStatementPathElement(parent, (XOWLEntityRoleProperty) object);
+        if ((parent.getType() instanceof IndividualOfClass) && (object instanceof XOWLProperty)) {
+            return PropertyStatementPathElement.makePropertyStatementPathElement(parent, (XOWLProperty) object);
         }
         return null;
     }
 
     @Override
     public boolean handleType(TechnologySpecificCustomType technologySpecificType) {
-        return ((technologySpecificType instanceof IndividualOfClass) && ((IndividualOfClass) technologySpecificType).getOntologyClass() instanceof XOWLEntityRoleClass);
+        return ((technologySpecificType instanceof IndividualOfClass) && ((IndividualOfClass) technologySpecificType).getOntologyClass() instanceof XOWLClass);
     }
 
     @Override
@@ -57,8 +57,8 @@ public class XOWLBindingFactory extends TechnologyAdapterBindingFactory {
             IndividualOfClass parentType = (IndividualOfClass) element.getType();
             List<SimplePathElement> returned = new ArrayList<>();
             returned.add(new URIPathElement(element));
-            if (parentType.getOntologyClass() instanceof XOWLEntityRoleClass) {
-                for (XOWLEntityRoleProperty property : ((XOWLEntityRoleClass) parentType.getOntologyClass()).getProperties()) {
+            if (parentType.getOntologyClass() instanceof XOWLClass) {
+                for (XOWLProperty property : ((XOWLClass) parentType.getOntologyClass()).getProperties()) {
                     returned.add(getSimplePathElement(property, element));
                 }
             }

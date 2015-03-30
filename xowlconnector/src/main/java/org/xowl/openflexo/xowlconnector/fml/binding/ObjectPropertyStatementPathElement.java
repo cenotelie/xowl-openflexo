@@ -22,7 +22,7 @@ package org.xowl.openflexo.xowlconnector.fml.binding;
 
 import org.openflexo.connie.binding.BindingPathElement;
 import org.openflexo.foundation.ontology.IndividualOfClass;
-import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleObjectProperty;
+import org.xowl.openflexo.xowlconnector.model.XOWLObjectProperty;
 
 import java.lang.reflect.Type;
 
@@ -38,13 +38,13 @@ public class ObjectPropertyStatementPathElement extends PropertyStatementPathEle
      * @param parent   The parent path element
      * @param property The represented property
      */
-    ObjectPropertyStatementPathElement(BindingPathElement parent, XOWLEntityRoleObjectProperty property) {
+    ObjectPropertyStatementPathElement(BindingPathElement parent, XOWLObjectProperty property) {
         super(parent, property);
     }
 
     @Override
-    public XOWLEntityRoleObjectProperty getProperty() {
-        return (XOWLEntityRoleObjectProperty) super.getProperty();
+    public XOWLObjectProperty getProperty() {
+        return (XOWLObjectProperty) super.getProperty();
     }
 
     @Override

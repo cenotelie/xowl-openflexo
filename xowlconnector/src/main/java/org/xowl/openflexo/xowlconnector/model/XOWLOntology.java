@@ -203,53 +203,53 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
     }
 
     @Override
-    public XOWLEntityRoleClass getClass(String classURI) {
-        return new XOWLEntityRoleClass(resolve(classURI));
+    public XOWLClass getClass(String classURI) {
+        return new XOWLClass(resolve(classURI));
     }
 
     @Override
-    public XOWLEntityRoleIndividual getIndividual(String individualURI) {
-        return new XOWLEntityRoleIndividual(resolve(individualURI));
+    public XOWLIndividual getIndividual(String individualURI) {
+        return new XOWLIndividual(resolve(individualURI));
     }
 
     @Override
-    public XOWLEntityRoleObjectProperty getObjectProperty(String propertyURI) {
-        return new XOWLEntityRoleObjectProperty(resolve(propertyURI));
+    public XOWLObjectProperty getObjectProperty(String propertyURI) {
+        return new XOWLObjectProperty(resolve(propertyURI));
     }
 
     @Override
-    public XOWLEntityRoleDataProperty getDataProperty(String propertyURI) {
-        return new XOWLEntityRoleDataProperty(resolve(propertyURI));
+    public XOWLDataProperty getDataProperty(String propertyURI) {
+        return new XOWLDataProperty(resolve(propertyURI));
     }
 
     @Override
-    public XOWLEntityRoleProperty getProperty(String objectURI) {
+    public XOWLProperty getProperty(String objectURI) {
         XOWLEntity entity = resolve(objectURI);
         if (entity.entity.getClassifiers().contains(repository.getProxy(Vocabulary.owlObjectProperty)))
-            return new XOWLEntityRoleObjectProperty(entity);
+            return new XOWLObjectProperty(entity);
         else
-            return new XOWLEntityRoleDataProperty(entity);
+            return new XOWLDataProperty(entity);
     }
 
     @Override
-    public List<XOWLEntityRoleClass> getClasses() {
-        List<XOWLEntityRoleClass> result = new ArrayList<>();
+    public List<XOWLClass> getClasses() {
+        List<XOWLClass> result = new ArrayList<>();
         for (XOWLEntity entity : entities.values()) {
             if (entity.entity.getClassifiers().contains(repository.getProxy(Vocabulary.owlClass))) {
-                result.add(new XOWLEntityRoleClass(entity));
+                result.add(new XOWLClass(entity));
             }
         }
         return result;
     }
 
     @Override
-    public List<XOWLEntityRoleIndividual> getIndividuals() {
-        List<XOWLEntityRoleIndividual> result = new ArrayList<>();
+    public List<XOWLIndividual> getIndividuals() {
+        List<XOWLIndividual> result = new ArrayList<>();
         for (XOWLEntity entity : entities.values()) {
             Collection<ProxyObject> classifiers = entity.entity.getClassifiers();
             if (classifiers.contains(repository.getProxy(Vocabulary.owlNamedIndividual))) {
                 // an explicit named individual, how lucky!
-                result.add(new XOWLEntityRoleIndividual(entity));
+                result.add(new XOWLIndividual(entity));
                 continue;
             }
             // exclude explicit classes, object properties, data properties, annotation properties and datatypes
@@ -263,28 +263,28 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
                 continue;
             if (classifiers.contains(repository.getProxy(Vocabulary.owlAnnotatedProperty)))
                 continue;
-            result.add(new XOWLEntityRoleIndividual(entity));
+            result.add(new XOWLIndividual(entity));
         }
         return result;
     }
 
     @Override
-    public List<XOWLEntityRoleDataProperty> getDataProperties() {
-        List<XOWLEntityRoleDataProperty> result = new ArrayList<>();
+    public List<XOWLDataProperty> getDataProperties() {
+        List<XOWLDataProperty> result = new ArrayList<>();
         for (XOWLEntity entity : entities.values()) {
             if (entity.entity.getClassifiers().contains(repository.getProxy(Vocabulary.owlDataProperty))) {
-                result.add(new XOWLEntityRoleDataProperty(entity));
+                result.add(new XOWLDataProperty(entity));
             }
         }
         return result;
     }
 
     @Override
-    public List<XOWLEntityRoleObjectProperty> getObjectProperties() {
-        List<XOWLEntityRoleObjectProperty> result = new ArrayList<>();
+    public List<XOWLObjectProperty> getObjectProperties() {
+        List<XOWLObjectProperty> result = new ArrayList<>();
         for (XOWLEntity entity : entities.values()) {
             if (entity.entity.getClassifiers().contains(repository.getProxy(Vocabulary.owlObjectProperty))) {
-                result.add(new XOWLEntityRoleObjectProperty(entity));
+                result.add(new XOWLObjectProperty(entity));
             }
         }
         return result;
@@ -317,28 +317,28 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
     }
 
     @Override
-    public XOWLEntityRoleClass getRootConcept() {
+    public XOWLClass getRootConcept() {
         XOWLEntity entity = resolve(Vocabulary.owl + "Thing");
-        return new XOWLEntityRoleClass(entity);
+        return new XOWLClass(entity);
     }
 
     @Override
-    public List<XOWLEntityRoleClass> getAccessibleClasses() {
+    public List<XOWLClass> getAccessibleClasses() {
         return getClasses();
     }
 
     @Override
-    public List<XOWLEntityRoleIndividual> getAccessibleIndividuals() {
+    public List<XOWLIndividual> getAccessibleIndividuals() {
         return getIndividuals();
     }
 
     @Override
-    public List<XOWLEntityRoleObjectProperty> getAccessibleObjectProperties() {
+    public List<XOWLObjectProperty> getAccessibleObjectProperties() {
         return getObjectProperties();
     }
 
     @Override
-    public List<XOWLEntityRoleDataProperty> getAccessibleDataProperties() {
+    public List<XOWLDataProperty> getAccessibleDataProperties() {
         return getDataProperties();
     }
 
@@ -348,27 +348,27 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
     }
 
     @Override
-    public XOWLEntityRoleClass getDeclaredClass(String classURI) {
+    public XOWLClass getDeclaredClass(String classURI) {
         return getClass(classURI);
     }
 
     @Override
-    public XOWLEntityRoleIndividual getDeclaredIndividual(String individualURI) {
+    public XOWLIndividual getDeclaredIndividual(String individualURI) {
         return getIndividual(individualURI);
     }
 
     @Override
-    public XOWLEntityRoleObjectProperty getDeclaredObjectProperty(String propertyURI) {
+    public XOWLObjectProperty getDeclaredObjectProperty(String propertyURI) {
         return getObjectProperty(propertyURI);
     }
 
     @Override
-    public XOWLEntityRoleDataProperty getDeclaredDataProperty(String propertyURI) {
+    public XOWLDataProperty getDeclaredDataProperty(String propertyURI) {
         return getDataProperty(propertyURI);
     }
 
     @Override
-    public XOWLEntityRoleProperty getDeclaredProperty(String objectURI) {
+    public XOWLProperty getDeclaredProperty(String objectURI) {
         return getProperty(objectURI);
     }
 
@@ -409,12 +409,12 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
      * @param clazz The class to instantiate
      * @return The new individual
      */
-    public XOWLEntityRoleIndividual newIndividual(XOWLEntityRoleClass clazz) {
+    public XOWLIndividual newIndividual(XOWLClass clazz) {
         ProxyObject proxy = repository.newObject(backend);
         proxy.setValue(Vocabulary.rdfType, clazz.entity);
         XOWLEntity entity = new XOWLEntity(getTechnologyAdapter(), this, proxy);
         entities.put(proxy, entity);
-        return new XOWLEntityRoleIndividual(entity);
+        return new XOWLIndividual(entity);
     }
 
     /**
@@ -422,12 +422,12 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
      *
      * @return The new class
      */
-    public XOWLEntityRoleClass newClass() {
+    public XOWLClass newClass() {
         ProxyObject proxy = repository.newObject(backend);
         proxy.setValue(Vocabulary.rdfType, repository.getProxy(Vocabulary.owlClass));
         XOWLEntity entity = new XOWLEntity(getTechnologyAdapter(), this, proxy);
         entities.put(proxy, entity);
-        return new XOWLEntityRoleClass(entity);
+        return new XOWLClass(entity);
     }
 
     /**
@@ -435,12 +435,12 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
      *
      * @return The new object property
      */
-    public XOWLEntityRoleObjectProperty newObjectProperty() {
+    public XOWLObjectProperty newObjectProperty() {
         ProxyObject proxy = repository.newObject(backend);
         proxy.setValue(Vocabulary.rdfType, repository.getProxy(Vocabulary.owlObjectProperty));
         XOWLEntity entity = new XOWLEntity(getTechnologyAdapter(), this, proxy);
         entities.put(proxy, entity);
-        return new XOWLEntityRoleObjectProperty(entity);
+        return new XOWLObjectProperty(entity);
     }
 
     /**
@@ -448,12 +448,12 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
      *
      * @return The new data property
      */
-    public XOWLEntityRoleDataProperty newDataProperty() {
+    public XOWLDataProperty newDataProperty() {
         ProxyObject proxy = repository.newObject(backend);
         proxy.setValue(Vocabulary.rdfType, repository.getProxy(Vocabulary.owlDataProperty));
         XOWLEntity entity = new XOWLEntity(getTechnologyAdapter(), this, proxy);
         entities.put(proxy, entity);
-        return new XOWLEntityRoleDataProperty(entity);
+        return new XOWLDataProperty(entity);
     }
 
     @Override

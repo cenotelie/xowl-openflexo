@@ -34,19 +34,19 @@ import java.util.*;
  *
  * @author Laurent Wouters
  */
-public class XOWLEntityRoleIndividual extends XOWLEntity implements IFlexoOntologyIndividual<XOWLTechnologyAdapter> {
+public class XOWLIndividual extends XOWLEntity implements IFlexoOntologyIndividual<XOWLTechnologyAdapter> {
     /**
      * Initializes this individual role for an entity
      *
      * @param entity The represented entity
      */
-    public XOWLEntityRoleIndividual(XOWLEntity entity) {
+    public XOWLIndividual(XOWLEntity entity) {
         super(entity.getTechnologyAdapter(), entity.getOntology(), entity.entity);
     }
 
     @Override
-    public List<XOWLEntityRoleClass> getTypes() {
-        List<XOWLEntityRoleClass> result = new ArrayList<>();
+    public List<XOWLClass> getTypes() {
+        List<XOWLClass> result = new ArrayList<>();
         for (ProxyObject proxy : entity.getClassifiers()) {
             result.add(ontology.getClass(proxy.getIRIString()));
         }
@@ -55,7 +55,7 @@ public class XOWLEntityRoleIndividual extends XOWLEntity implements IFlexoOntolo
 
     @Override
     public boolean isIndividualOf(IFlexoOntologyClass<XOWLTechnologyAdapter> aClass) {
-        if (!(aClass instanceof XOWLEntityRoleClass))
+        if (!(aClass instanceof XOWLClass))
             return false;
         return getTypes().contains(aClass);
     }
@@ -88,14 +88,14 @@ public class XOWLEntityRoleIndividual extends XOWLEntity implements IFlexoOntolo
 
     @Override
     public IFlexoOntologyPropertyValue<XOWLTechnologyAdapter> getPropertyValue(IFlexoOntologyStructuralProperty<XOWLTechnologyAdapter> property) {
-        XOWLPropertyValue mapping = new XOWLPropertyValue(this, (XOWLEntityRoleProperty) property);
-        if (property instanceof XOWLEntityRoleObjectProperty) {
-            Collection<ProxyObject> proxies = entity.getObjectValues(((XOWLEntityRoleProperty) property).entity.getIRIString());
+        XOWLPropertyValue mapping = new XOWLPropertyValue(this, (XOWLProperty) property);
+        if (property instanceof XOWLObjectProperty) {
+            Collection<ProxyObject> proxies = entity.getObjectValues(((XOWLProperty) property).entity.getIRIString());
             for (ProxyObject proxy : proxies) {
                 mapping.addValue(ontology.resolve(proxy));
             }
         } else {
-            Collection<Object> values = entity.getDataValues(((XOWLEntityRoleProperty) property).entity.getIRIString());
+            Collection<Object> values = entity.getDataValues(((XOWLProperty) property).entity.getIRIString());
             for (Object value : values) {
                 mapping.addValue(value);
             }
@@ -105,20 +105,20 @@ public class XOWLEntityRoleIndividual extends XOWLEntity implements IFlexoOntolo
 
     @Override
     public IFlexoOntologyPropertyValue<XOWLTechnologyAdapter> addToPropertyValue(IFlexoOntologyStructuralProperty<XOWLTechnologyAdapter> property, Object newValue) {
-        if (property instanceof XOWLEntityRoleObjectProperty) {
-            entity.setValue(((XOWLEntityRoleProperty) property).entity.getIRIString(), ((XOWLEntity) newValue).entity);
+        if (property instanceof XOWLObjectProperty) {
+            entity.setValue(((XOWLProperty) property).entity.getIRIString(), ((XOWLEntity) newValue).entity);
         } else {
-            entity.setValue(((XOWLEntityRoleProperty) property).entity.getIRIString(), newValue);
+            entity.setValue(((XOWLProperty) property).entity.getIRIString(), newValue);
         }
         return getPropertyValue(property);
     }
 
     @Override
     public IFlexoOntologyPropertyValue<XOWLTechnologyAdapter> removeFromPropertyValue(IFlexoOntologyStructuralProperty<XOWLTechnologyAdapter> property, Object valueToRemove) {
-        if (property instanceof XOWLEntityRoleObjectProperty) {
-            entity.unset(((XOWLEntityRoleProperty) property).entity.getIRIString(), ((XOWLEntity) valueToRemove).entity);
+        if (property instanceof XOWLObjectProperty) {
+            entity.unset(((XOWLProperty) property).entity.getIRIString(), ((XOWLEntity) valueToRemove).entity);
         } else {
-            entity.unset(((XOWLEntityRoleProperty) property).entity.getIRIString(), valueToRemove);
+            entity.unset(((XOWLProperty) property).entity.getIRIString(), valueToRemove);
         }
         return getPropertyValue(property);
     }

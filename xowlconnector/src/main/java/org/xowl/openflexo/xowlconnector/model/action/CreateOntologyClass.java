@@ -27,7 +27,7 @@ import org.openflexo.foundation.action.FlexoActionType;
 import org.openflexo.foundation.ontology.DuplicateURIException;
 import org.openflexo.toolbox.StringUtils;
 import org.xowl.openflexo.xowlconnector.model.XOWLEntity;
-import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleClass;
+import org.xowl.openflexo.xowlconnector.model.XOWLClass;
 import org.xowl.openflexo.xowlconnector.model.XOWLObject;
 import org.xowl.openflexo.xowlconnector.model.XOWLOntology;
 
@@ -61,7 +61,7 @@ public class CreateOntologyClass extends FlexoAction<CreateOntologyClass, XOWLOb
 
     static {
         FlexoObjectImpl.addActionForClass(CreateOntologyClass.ACTION_TYPE, XOWLOntology.class);
-        FlexoObjectImpl.addActionForClass(CreateOntologyClass.ACTION_TYPE, XOWLEntityRoleClass.class);
+        FlexoObjectImpl.addActionForClass(CreateOntologyClass.ACTION_TYPE, XOWLClass.class);
     }
 
     /**
@@ -71,7 +71,7 @@ public class CreateOntologyClass extends FlexoAction<CreateOntologyClass, XOWLOb
     /**
      * The new class
      */
-    private XOWLEntityRoleClass clazz;
+    private XOWLClass clazz;
 
     /**
      * Initializes this action

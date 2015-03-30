@@ -59,7 +59,7 @@ public class CreateOntologyIndividual extends FlexoAction<CreateOntologyIndividu
 
     static {
         FlexoObjectImpl.addActionForClass(CreateOntologyIndividual.ACTION_TYPE, XOWLOntology.class);
-        FlexoObjectImpl.addActionForClass(CreateOntologyIndividual.ACTION_TYPE, XOWLEntityRoleClass.class);
+        FlexoObjectImpl.addActionForClass(CreateOntologyIndividual.ACTION_TYPE, XOWLClass.class);
     }
 
     /**
@@ -69,11 +69,11 @@ public class CreateOntologyIndividual extends FlexoAction<CreateOntologyIndividu
     /**
      * The instantiated class
      */
-    private final XOWLEntityRoleClass clazz;
+    private final XOWLClass clazz;
     /**
      * The new individual
      */
-    private XOWLEntityRoleIndividual individual;
+    private XOWLIndividual individual;
 
     /**
      * Initializes this action
@@ -85,7 +85,7 @@ public class CreateOntologyIndividual extends FlexoAction<CreateOntologyIndividu
     private CreateOntologyIndividual(XOWLObject focusedObject, Vector<XOWLEntity> globalSelection, FlexoEditor editor) {
         super(ACTION_TYPE, focusedObject, globalSelection, editor);
         this.name = "NewIndividual";
-        this.clazz = focusedObject instanceof XOWLEntityRoleClass ? (XOWLEntityRoleClass) focusedObject : focusedObject.getOntology().getClass(Vocabulary.owlThing);
+        this.clazz = focusedObject instanceof XOWLClass ? (XOWLClass) focusedObject : focusedObject.getOntology().getClass(Vocabulary.owlThing);
     }
 
     @Override

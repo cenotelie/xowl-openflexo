@@ -34,29 +34,29 @@ import java.util.List;
  *
  * @author Laurent Wouters
  */
-public class XOWLEntityRoleClass extends XOWLEntity implements IFlexoOntologyClass<XOWLTechnologyAdapter> {
+public class XOWLClass extends XOWLEntity implements IFlexoOntologyClass<XOWLTechnologyAdapter> {
     /**
      * Initializes this class role for an entity
      *
      * @param entity The represented entity
      */
-    public XOWLEntityRoleClass(XOWLEntity entity) {
+    public XOWLClass(XOWLEntity entity) {
         super(entity.getTechnologyAdapter(), entity.getOntology(), entity.entity);
     }
 
     @Override
-    public List<XOWLEntityRoleClass> getSuperClasses() {
+    public List<XOWLClass> getSuperClasses() {
         Collection<ProxyObject> supers = entity.getObjectValues(Vocabulary.rdfsSubClassOf);
-        List<XOWLEntityRoleClass> result = new ArrayList<>();
+        List<XOWLClass> result = new ArrayList<>();
         for (ProxyObject proxy : supers)
             result.add(ontology.getClass(proxy.getIRIString()));
         return result;
     }
 
     @Override
-    public List<XOWLEntityRoleClass> getSubClasses(IFlexoOntology<XOWLTechnologyAdapter> context) {
+    public List<XOWLClass> getSubClasses(IFlexoOntology<XOWLTechnologyAdapter> context) {
         Collection<ProxyObject> supers = entity.getObjectsFrom(Vocabulary.rdfsSubClassOf);
-        List<XOWLEntityRoleClass> result = new ArrayList<>();
+        List<XOWLClass> result = new ArrayList<>();
         for (ProxyObject proxy : supers)
             result.add(ontology.getClass(proxy.getIRIString()));
         return result;
@@ -64,7 +64,7 @@ public class XOWLEntityRoleClass extends XOWLEntity implements IFlexoOntologyCla
 
     @Override
     public boolean isSuperClassOf(IFlexoOntologyClass<XOWLTechnologyAdapter> aClass) {
-        if (!(aClass instanceof XOWLEntityRoleClass))
+        if (!(aClass instanceof XOWLClass))
             return false;
         return getSubClasses(null).contains(aClass);
     }
@@ -85,8 +85,8 @@ public class XOWLEntityRoleClass extends XOWLEntity implements IFlexoOntologyCla
      *
      * @return The properties that have this class as domain
      */
-    public Collection<XOWLEntityRoleProperty> getProperties() {
-        Collection<XOWLEntityRoleProperty> result = new ArrayList<>();
+    public Collection<XOWLProperty> getProperties() {
+        Collection<XOWLProperty> result = new ArrayList<>();
         Collection<ProxyObject> proxies = entity.getObjectsFrom(Vocabulary.rdfsDomain);
         for (ProxyObject proxy : proxies) {
             result.add(ontology.getProperty(proxy.getIRIString()));

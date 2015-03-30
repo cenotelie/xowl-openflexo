@@ -28,7 +28,7 @@ import org.openflexo.model.annotations.ImplementationClass;
 import org.openflexo.model.annotations.ModelEntity;
 import org.openflexo.model.annotations.XMLElement;
 import org.xowl.openflexo.xowlconnector.XOWLModelSlot;
-import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleClass;
+import org.xowl.openflexo.xowlconnector.model.XOWLClass;
 import org.xowl.openflexo.xowlconnector.model.XOWLOntology;
 
 /**
@@ -40,23 +40,23 @@ import org.xowl.openflexo.xowlconnector.model.XOWLOntology;
 @ImplementationClass(AddXOWLClass.AddXOWLClassImpl.class)
 @XMLElement
 @FML("AddXOWLClass")
-public interface AddXOWLClass extends AddClass<XOWLModelSlot, XOWLEntityRoleClass>, XOWLAction<XOWLEntityRoleClass> {
+public interface AddXOWLClass extends AddClass<XOWLModelSlot, XOWLClass>, XOWLAction<XOWLClass> {
     /**
      * The default implementation
      */
-    abstract class AddXOWLClassImpl extends AddClassImpl<XOWLModelSlot, XOWLEntityRoleClass> implements AddXOWLClass {
+    abstract class AddXOWLClassImpl extends AddClassImpl<XOWLModelSlot, XOWLClass> implements AddXOWLClass {
         @Override
-        public XOWLEntityRoleClass getOntologyClass() {
-            return (XOWLEntityRoleClass) super.getOntologyClass();
+        public XOWLClass getOntologyClass() {
+            return (XOWLClass) super.getOntologyClass();
         }
 
         @Override
-        public Class<XOWLEntityRoleClass> getOntologyClassClass() {
-            return XOWLEntityRoleClass.class;
+        public Class<XOWLClass> getOntologyClassClass() {
+            return XOWLClass.class;
         }
 
         @Override
-        public XOWLEntityRoleClass execute(FlexoBehaviourAction action) {
+        public XOWLClass execute(FlexoBehaviourAction action) {
             return getModelSlotInstance(action).getAccessedResourceData().newClass();
         }
 

@@ -28,13 +28,13 @@ import org.xowl.store.Vocabulary;
  *
  * @author Laurent Wouters
  */
-public class XOWLEntityRoleDataProperty extends XOWLEntityRoleProperty implements IFlexoOntologyDataProperty<XOWLTechnologyAdapter> {
+public class XOWLDataProperty extends XOWLProperty implements IFlexoOntologyDataProperty<XOWLTechnologyAdapter> {
     /**
      * Initializes this data property role for an entity
      *
      * @param entity The represented entity
      */
-    public XOWLEntityRoleDataProperty(XOWLEntity entity) {
+    public XOWLDataProperty(XOWLEntity entity) {
         super(entity);
     }
 

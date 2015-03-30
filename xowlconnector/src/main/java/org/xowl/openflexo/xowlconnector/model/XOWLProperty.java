@@ -36,13 +36,13 @@ import java.util.List;
  *
  * @author Laurent Wouters
  */
-public abstract class XOWLEntityRoleProperty extends XOWLEntity implements IFlexoOntologyStructuralProperty<XOWLTechnologyAdapter> {
+public abstract class XOWLProperty extends XOWLEntity implements IFlexoOntologyStructuralProperty<XOWLTechnologyAdapter> {
     /**
      * Initializes this property role for an entity
      *
      * @param entity The represented entity
      */
-    public XOWLEntityRoleProperty(XOWLEntity entity) {
+    public XOWLProperty(XOWLEntity entity) {
         super(entity.getTechnologyAdapter(), entity.getOntology(), entity.entity);
     }
 
@@ -58,9 +58,9 @@ public abstract class XOWLEntityRoleProperty extends XOWLEntity implements IFlex
     }
 
     @Override
-    public List<XOWLEntityRoleProperty> getSuperProperties() {
+    public List<XOWLProperty> getSuperProperties() {
         Collection<ProxyObject> supers = entity.getObjectValues(Vocabulary.rdfsSubPropertyOf);
-        List<XOWLEntityRoleProperty> result = new ArrayList<>();
+        List<XOWLProperty> result = new ArrayList<>();
         for (ProxyObject proxy : supers)
             result.add(ontology.getProperty(proxy.getIRIString()));
         return result;
@@ -69,7 +69,7 @@ public abstract class XOWLEntityRoleProperty extends XOWLEntity implements IFlex
     @Override
     public List<? extends IFlexoOntologyStructuralProperty<XOWLTechnologyAdapter>> getSubProperties(IFlexoOntology<XOWLTechnologyAdapter> context) {
         Collection<ProxyObject> supers = entity.getObjectsFrom(Vocabulary.rdfsSubPropertyOf);
-        List<XOWLEntityRoleProperty> result = new ArrayList<>();
+        List<XOWLProperty> result = new ArrayList<>();
         for (ProxyObject proxy : supers)
             result.add(ontology.getProperty(proxy.getIRIString()));
         return result;

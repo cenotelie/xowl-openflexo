@@ -25,7 +25,7 @@ import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.model.annotations.ImplementationClass;
 import org.openflexo.model.annotations.ModelEntity;
 import org.openflexo.model.annotations.XMLElement;
-import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleIndividual;
+import org.xowl.openflexo.xowlconnector.model.XOWLIndividual;
 
 /**
  * Represents the role of an OWL individual
@@ -36,11 +36,11 @@ import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleIndividual;
 @ImplementationClass(XOWLIndividualRole.XOWLIndividualRoleImpl.class)
 @XMLElement
 @FML("XOWLIndividualRole")
-public interface XOWLIndividualRole extends IndividualRole<XOWLEntityRoleIndividual> {
+public interface XOWLIndividualRole extends IndividualRole<XOWLIndividual> {
     /**
      * The default implementation
      */
-    abstract class XOWLIndividualRoleImpl extends IndividualRoleImpl<XOWLEntityRoleIndividual> implements XOWLIndividualRole {
+    abstract class XOWLIndividualRoleImpl extends IndividualRoleImpl<XOWLIndividual> implements XOWLIndividualRole {
         /**
          * Initializes this instance
          */

@@ -38,7 +38,7 @@ public class XOWLPropertyValue extends XOWLObject implements IFlexoOntologyPrope
     /**
      * The property
      */
-    private XOWLEntityRoleProperty property;
+    private XOWLProperty property;
     /**
      * The value
      */
@@ -50,7 +50,7 @@ public class XOWLPropertyValue extends XOWLObject implements IFlexoOntologyPrope
      * @param subject  The subject
      * @param property The property
      */
-    public XOWLPropertyValue(XOWLEntity subject, XOWLEntityRoleProperty property) {
+    public XOWLPropertyValue(XOWLEntity subject, XOWLProperty property) {
         super(subject.getTechnologyAdapter());
         this.subject = subject;
         this.property = property;
@@ -67,7 +67,7 @@ public class XOWLPropertyValue extends XOWLObject implements IFlexoOntologyPrope
     }
 
     @Override
-    public XOWLEntityRoleProperty getProperty() {
+    public XOWLProperty getProperty() {
         return property;
     }
 

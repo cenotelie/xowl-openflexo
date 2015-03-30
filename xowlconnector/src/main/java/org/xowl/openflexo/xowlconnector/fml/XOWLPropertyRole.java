@@ -25,7 +25,7 @@ import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.model.annotations.ImplementationClass;
 import org.openflexo.model.annotations.ModelEntity;
 import org.openflexo.model.annotations.XMLElement;
-import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleProperty;
+import org.xowl.openflexo.xowlconnector.model.XOWLProperty;
 
 /**
  * Represents the role of an OWL property
@@ -36,11 +36,11 @@ import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleProperty;
 @ImplementationClass(XOWLPropertyRole.XOWLPropertyRoleImpl.class)
 @XMLElement
 @FML("XOWLPropertyRole")
-public interface XOWLPropertyRole extends PropertyRole<XOWLEntityRoleProperty> {
+public interface XOWLPropertyRole extends PropertyRole<XOWLProperty> {
     /**
      * The default implementation
      */
-    abstract class XOWLPropertyRoleImpl extends PropertyRoleImpl<XOWLEntityRoleProperty> implements XOWLPropertyRole {
+    abstract class XOWLPropertyRoleImpl extends PropertyRoleImpl<XOWLProperty> implements XOWLPropertyRole {
         /**
          * Initializes this instance
          */

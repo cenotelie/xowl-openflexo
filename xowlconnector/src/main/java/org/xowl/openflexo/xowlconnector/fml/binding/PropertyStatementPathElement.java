@@ -25,10 +25,10 @@ import org.openflexo.connie.binding.BindingPathElement;
 import org.openflexo.connie.binding.SimplePathElement;
 import org.openflexo.connie.exception.NullReferenceException;
 import org.openflexo.connie.exception.TypeMismatchException;
-import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleDataProperty;
-import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleIndividual;
-import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleObjectProperty;
-import org.xowl.openflexo.xowlconnector.model.XOWLEntityRoleProperty;
+import org.xowl.openflexo.xowlconnector.model.XOWLDataProperty;
+import org.xowl.openflexo.xowlconnector.model.XOWLIndividual;
+import org.xowl.openflexo.xowlconnector.model.XOWLObjectProperty;
+import org.xowl.openflexo.xowlconnector.model.XOWLProperty;
 
 import java.lang.reflect.Type;
 
@@ -41,7 +41,7 @@ public abstract class PropertyStatementPathElement extends SimplePathElement {
     /**
      * The property represented by this path element
      */
-    private final XOWLEntityRoleProperty property;
+    private final XOWLProperty property;
 
     /**
      * Creates a path element from the specified parent element and an property
@@ -50,11 +50,11 @@ public abstract class PropertyStatementPathElement extends SimplePathElement {
      * @param property The applied OWL property
      * @return The path element
      */
-    public static PropertyStatementPathElement makePropertyStatementPathElement(BindingPathElement parent, XOWLEntityRoleProperty property) {
-        if (property instanceof XOWLEntityRoleDataProperty) {
-            return new DataPropertyStatementPathElement(parent, (XOWLEntityRoleDataProperty) property);
+    public static PropertyStatementPathElement makePropertyStatementPathElement(BindingPathElement parent, XOWLProperty property) {
+        if (property instanceof XOWLDataProperty) {
+            return new DataPropertyStatementPathElement(parent, (XOWLDataProperty) property);
         } else {
-            return new ObjectPropertyStatementPathElement(parent, (XOWLEntityRoleObjectProperty) property);
+            return new ObjectPropertyStatementPathElement(parent, (XOWLObjectProperty) property);
         }
     }
 
@@ -64,12 +64,12 @@ public abstract class PropertyStatementPathElement extends SimplePathElement {
      * @param parent   The parent path element
      * @param property The represented property
      */
-    PropertyStatementPathElement(BindingPathElement parent, XOWLEntityRoleProperty property) {
-        super(parent, property.getName(), XOWLEntityRoleIndividual.class);
+    PropertyStatementPathElement(BindingPathElement parent, XOWLProperty property) {
+        super(parent, property.getName(), XOWLIndividual.class);
         this.property = property;
     }
 
-    public XOWLEntityRoleProperty getProperty() {
+    public XOWLProperty getProperty() {
         return property;
     }
 
@@ -85,12 +85,12 @@ public abstract class PropertyStatementPathElement extends SimplePathElement {
 
     @Override
     public Object getBindingValue(Object target, BindingEvaluationContext context) throws TypeMismatchException, NullReferenceException {
-        return ((XOWLEntityRoleIndividual) target).getPropertyValue(getProperty());
+        return ((XOWLIndividual) target).getPropertyValue(getProperty());
     }
 
     @Override
     public void setBindingValue(Object value, Object target, BindingEvaluationContext context) throws TypeMismatchException, NullReferenceException {
-        ((XOWLEntityRoleIndividual) target).addToPropertyValue(getProperty(), value);
+        ((XOWLIndividual) target).addToPropertyValue(getProperty(), value);
     }
 
     @Override
