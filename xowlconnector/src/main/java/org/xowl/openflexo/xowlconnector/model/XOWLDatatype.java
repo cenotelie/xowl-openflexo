@@ -22,54 +22,70 @@ package org.xowl.openflexo.xowlconnector.model;
 import org.openflexo.foundation.ontology.BuiltInDataType;
 import org.openflexo.foundation.ontology.IFlexoOntologyDataType;
 import org.xowl.openflexo.xowlconnector.XOWLTechnologyAdapter;
+import org.xowl.store.Vocabulary;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * New code
+ * Represents a datatype from an xOWL ontology
  *
  * @author Laurent Wouters
  */
-public class XOWLDatatype extends XOWLObject implements IFlexoOntologyDataType<XOWLTechnologyAdapter> {
+public class XOWLDatatype extends XOWLEntity implements IFlexoOntologyDataType<XOWLTechnologyAdapter> {
+
     /**
-     * Initializes this object
-     *
-     * @param adapter The associated adapter
+     * The register of known implementations
      */
-    public XOWLDatatype(XOWLTechnologyAdapter adapter) {
-        super(adapter);
+    private static final Map<String, BuiltInDataType> REGISTER = new HashMap<>();
+
+    static {
+        REGISTER.put(Vocabulary.xsdByte, BuiltInDataType.Byte);
+        REGISTER.put(Vocabulary.xsdUnsigedByte, BuiltInDataType.Byte);
+        REGISTER.put(Vocabulary.xsdShort, BuiltInDataType.Short);
+        REGISTER.put(Vocabulary.xsdUnsignedShort, BuiltInDataType.Short);
+        REGISTER.put(Vocabulary.xsdInt, BuiltInDataType.Int);
+        REGISTER.put(Vocabulary.xsdInteger, BuiltInDataType.Integer);
+        REGISTER.put(Vocabulary.xsdUnsignedInteger, BuiltInDataType.Integer);
+        REGISTER.put(Vocabulary.xsdNonNegativeInteger, BuiltInDataType.Integer);
+        REGISTER.put(Vocabulary.xsdNonPositiveinteger, BuiltInDataType.Integer);
+        REGISTER.put(Vocabulary.xsdPositiveInteger, BuiltInDataType.Integer);
+        REGISTER.put(Vocabulary.xsdNegativeInteger, BuiltInDataType.Integer);
+        REGISTER.put(Vocabulary.xsdLong, BuiltInDataType.Long);
+        REGISTER.put(Vocabulary.xsdUnsignedLong, BuiltInDataType.Long);
+        REGISTER.put(Vocabulary.xsdDouble, BuiltInDataType.Double);
+        REGISTER.put(Vocabulary.xsdFloat, BuiltInDataType.Float);
+        REGISTER.put(Vocabulary.xsdDecimal, BuiltInDataType.Double);
+        REGISTER.put(Vocabulary.xsdBoolean, BuiltInDataType.Boolean);
+        REGISTER.put(Vocabulary.xsdString, BuiltInDataType.String);
+        REGISTER.put(Vocabulary.xsdDate, BuiltInDataType.String);
+        REGISTER.put(Vocabulary.xsdDateTime, BuiltInDataType.String);
+        REGISTER.put(Vocabulary.xsdDuration, BuiltInDataType.String);
+        REGISTER.put(Vocabulary.xsdTime, BuiltInDataType.String);
+        REGISTER.put(Vocabulary.rdfPlainLiteral, BuiltInDataType.String);
+        REGISTER.put(Vocabulary.owl + "Real", BuiltInDataType.Double);
+        REGISTER.put(Vocabulary.owl + "Rational", BuiltInDataType.Double);
+    }
+
+    /**
+     * Initializes this datatype role for an entity
+     *
+     * @param entity The represented entity
+     */
+    public XOWLDatatype(XOWLEntity entity) {
+        super(entity.getTechnologyAdapter(), entity.getOntology(), entity.entity);
     }
 
     @Override
     public Class<?> getAccessedType() {
-        return null;
+        return getBuiltInDataType().getAccessedType();
     }
 
     @Override
     public BuiltInDataType getBuiltInDataType() {
-        return null;
-    }
-
-    @Override
-    public String getName() {
-        return null;
-    }
-
-    @Override
-    public void setName(String name) throws Exception {
-
-    }
-
-    @Override
-    public String getURI() {
-        return null;
-    }
-
-    @Override
-    public XOWLOntology getFlexoOntology() {
-        return null;
-    }
-
-    @Override
-    public String getDisplayableDescription() {
-        return null;
+        BuiltInDataType result = REGISTER.get(entity.getIRIString());
+        if (result != null)
+            return result;
+        return BuiltInDataType.String;
     }
 }

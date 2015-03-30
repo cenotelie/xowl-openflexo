@@ -188,8 +188,13 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
 
     @Override
     public List<XOWLDatatype> getDataTypes() {
-        // TODO: implements this
-        return new ArrayList<>(0);
+        List<XOWLDatatype> result = new ArrayList<>();
+        for (XOWLEntity entity : entities.values()) {
+            if (entity.entity.getClassifiers().contains(repository.getProxy(Vocabulary.rdfDatatype))) {
+                result.add(new XOWLDatatype(entity));
+            }
+        }
+        return result;
     }
 
     @Override

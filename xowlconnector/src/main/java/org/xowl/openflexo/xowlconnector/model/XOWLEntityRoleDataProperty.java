@@ -20,7 +20,6 @@
 package org.xowl.openflexo.xowlconnector.model;
 
 import org.openflexo.foundation.ontology.IFlexoOntologyDataProperty;
-import org.xowl.openflexo.xowlconnector.XOWLContextManager;
 import org.xowl.openflexo.xowlconnector.XOWLTechnologyAdapter;
 import org.xowl.store.Vocabulary;
 
@@ -41,6 +40,6 @@ public class XOWLEntityRoleDataProperty extends XOWLEntityRoleProperty implement
 
     @Override
     public XOWLDatatype getRange() {
-        return ((XOWLContextManager) getContext()).getDatatype(entity.getObjectValue(Vocabulary.rdfsRange));
+        return new XOWLDatatype(ontology.resolve(entity.getObjectValue(Vocabulary.rdfsRange)));
     }
 }

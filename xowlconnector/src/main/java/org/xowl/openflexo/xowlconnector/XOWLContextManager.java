@@ -22,10 +22,8 @@ package org.xowl.openflexo.xowlconnector;
 import org.openflexo.foundation.resource.FlexoResourceCenterService;
 import org.openflexo.foundation.technologyadapter.TechnologyContextManager;
 import org.xowl.lang.owl2.Ontology;
-import org.xowl.openflexo.xowlconnector.model.XOWLDatatype;
 import org.xowl.openflexo.xowlconnector.model.XOWLOntology;
 import org.xowl.store.AbstractRepository;
-import org.xowl.store.ProxyObject;
 import org.xowl.store.Repository;
 
 import java.io.IOException;
@@ -108,15 +106,5 @@ public class XOWLContextManager extends TechnologyContextManager<XOWLTechnologyA
         result = new XOWLOntology(this, repository, repository.resolveOntology(ontologyURI));
         ontologies.put(ontologyURI, result);
         return result;
-    }
-
-    /**
-     * Gets the XOWLDatatype representing the datatype behind the specified proxy object
-     *
-     * @param proxy The proxy to a datatype
-     * @return The corresponding XOWLDatatype
-     */
-    public XOWLDatatype getDatatype(ProxyObject proxy) {
-        return null;
     }
 }
