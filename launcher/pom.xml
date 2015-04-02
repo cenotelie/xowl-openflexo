@@ -29,6 +29,7 @@
 		</plugins>
 	</build>
 	<dependencies>
+		<!-- OpenFlexo core components -->
 		<dependency>
 			<groupId>org.openflexo</groupId>
 			<artifactId>flexo-ui</artifactId>
@@ -44,10 +45,48 @@
 			<artifactId>flexovieweditor</artifactId>
 			<version>1.7.1-SNAPSHOT</version>
 		</dependency>
+		<!-- OpenFlexo technology adapters -->
+		<dependency>
+			<groupId>org.openflexo</groupId>
+			<artifactId>flexodiagram</artifactId>
+			<version>1.7.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openflexo</groupId>
+			<artifactId>emfconnector</artifactId>
+			<version>1.7.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openflexo</groupId>
+			<artifactId>excelconnector</artifactId>
+			<version>1.7.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openflexo</groupId>
+			<artifactId>flexodiagram-ui</artifactId>
+			<version>1.7.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openflexo</groupId>
+			<artifactId>emfconnector-ui</artifactId>
+			<version>1.7.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openflexo</groupId>
+			<artifactId>excelconnector-ui</artifactId>
+			<version>1.7.1-SNAPSHOT</version>
+		</dependency>
+		<!-- custom components -->
 		<dependency>
 			<groupId>org.xowl.openflexo</groupId>
 			<artifactId>xowlconnector</artifactId>
 			<version>1.7.1-SNAPSHOT</version>
+		</dependency>
+		<!-- Fix for Log4J (version 1.2.13 or upper required) -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>[1.2.13,)</version>
 		</dependency>
 	</dependencies>
 </project>
