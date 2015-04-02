@@ -23,7 +23,7 @@ package org.xowl.openflexo.xowlconnector.fml.binding;
 
 import org.openflexo.connie.binding.BindingPathElement;
 import org.openflexo.connie.binding.SimplePathElement;
-import org.openflexo.foundation.fml.TechnologySpecificCustomType;
+import org.openflexo.foundation.fml.TechnologySpecificType;
 import org.openflexo.foundation.ontology.IndividualOfClass;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapterBindingFactory;
 import org.xowl.openflexo.xowlconnector.model.XOWLClass;
@@ -47,7 +47,7 @@ public class XOWLBindingFactory extends TechnologyAdapterBindingFactory {
     }
 
     @Override
-    public boolean handleType(TechnologySpecificCustomType technologySpecificType) {
+    public boolean handleType(TechnologySpecificType<?> technologySpecificType) {
         return ((technologySpecificType instanceof IndividualOfClass) && ((IndividualOfClass) technologySpecificType).getOntologyClass() instanceof XOWLClass);
     }
 

@@ -109,11 +109,6 @@ public abstract class XOWLModelSlotImpl extends TypeAwareModelSlot.TypeAwareMode
     }
 
     @Override
-    public String getPreciseType() {
-        return "xOWL Ontology";
-    }
-
-    @Override
     public XOWLTechnologyAdapter getModelSlotTechnologyAdapter() {
         return (XOWLTechnologyAdapter) super.getModelSlotTechnologyAdapter();
     }
