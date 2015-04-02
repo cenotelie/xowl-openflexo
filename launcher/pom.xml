@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.openflexo</groupId>
-		<artifactId>openflexo-technology-adapters</artifactId>
+		<artifactId>openflexo-core</artifactId>
 		<version>1.7.1-SNAPSHOT</version>
 	</parent>
 	<groupId>org.xowl.openflexo</groupId>
-	<artifactId>xowlconnector</artifactId>
-	<name>xOWL Technology Connector</name>
+	<artifactId>launcher</artifactId>
+	<name>OpenFlexo Launcher</name>
 	<version>1.7.1-SNAPSHOT</version>
 	<build>
 		<plugins>
@@ -31,43 +31,23 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.openflexo</groupId>
-			<artifactId>flexo-foundation</artifactId>
+			<artifactId>flexo-ui</artifactId>
+			<version>1.7.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openflexo</groupId>
-			<artifactId>flexo-foundation</artifactId>
-			<classifier>tests</classifier>
-			<scope>test</scope>
+			<artifactId>flexoviewpointmodeler</artifactId>
+			<version>1.7.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openflexo</groupId>
-			<artifactId>flexoutils</artifactId>
-			<classifier>tests</classifier>
-			<scope>test</scope>
+			<artifactId>flexovieweditor</artifactId>
+			<version>1.7.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>org.xowl.infra</groupId>
-			<artifactId>commons</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.xowl.infra</groupId>
-			<artifactId>lang</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.xowl.infra</groupId>
-			<artifactId>store</artifactId>
-			<version>1.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.xowl.hime</groupId>
-			<artifactId>redist</artifactId>
-			<version>[1.3.0,2.0.0)</version>
-			<scope>compile</scope>
+			<groupId>org.xowl.openflexo</groupId>
+			<artifactId>xowlconnector</artifactId>
+			<version>1.7.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>
