@@ -4,7 +4,7 @@
 	<artifactId>top</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0.0</version>
-	<name>xOWL-OpenFlexo Connection</name>
+	<name>xOWL - OpenFlexo Connection</name>
 	<description>Components for connecting the xOWL infrastructure and OpenFlexo</description>
 	<url>https://xowl.org/</url>
 	<licenses>
@@ -33,7 +33,7 @@
 		</snapshotRepository>
 	</distributionManagement>
 	<modules>
-		<module>xowlconnector</module>
+		<module>connector</module>
 		<module>launcher</module>
 	</modules>
 	<build>
