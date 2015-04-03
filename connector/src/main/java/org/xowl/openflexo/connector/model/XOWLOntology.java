@@ -33,6 +33,8 @@ import org.xowl.openflexo.connector.XOWLTechnologyAdapter;
 import org.xowl.store.ProxyObject;
 import org.xowl.store.Repository;
 import org.xowl.store.Vocabulary;
+import org.xowl.utils.collections.Adapter;
+import org.xowl.utils.collections.AdaptingIterator;
 
 import java.util.*;
 
@@ -142,7 +144,7 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
 
     @Override
     public Object getObject(String objectURI) {
-        return resolve(objectURI);
+        return getOntologyObject(objectURI);
     }
 
     /*
@@ -179,18 +181,20 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
 
     @Override
     public List<XOWLEntity> getConcepts() {
-        Iterator<ProxyObject> proxies = repository.getProxiesIn(backend);
+        Iterator<XOWLEntity> entities = getEntities();
         List<XOWLEntity> result = new ArrayList<>();
-        while (proxies.hasNext())
-            result.add(resolve(proxies.next()));
+        while (entities.hasNext())
+            result.add(entities.next());
         return result;
     }
 
     @Override
     public List<XOWLDatatype> getDataTypes() {
+        Iterator<XOWLEntity> entities = getEntities();
         List<XOWLDatatype> result = new ArrayList<>();
-        for (XOWLEntity entity : entities.values()) {
-            if (entity.entity.getClassifiers().contains(repository.getProxy(Vocabulary.rdfDatatype))) {
+        while (entities.hasNext()) {
+            XOWLEntity entity = entities.next();
+            if (entity.entity.getClassifiers().contains(repository.resolveProxy(Vocabulary.rdfDatatype))) {
                 result.add(new XOWLDatatype(entity));
             }
         }
@@ -199,33 +203,43 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
 
     @Override
     public XOWLEntity getOntologyObject(String objectURI) {
-        return resolve(objectURI);
+        ProxyObject proxyObject = repository.getProxy(objectURI);
+        if (proxyObject == null)
+            return null;
+        XOWLOntology ontology = ((XOWLContextManager) getContext()).get(proxyObject.getOntology().getHasIRI().getHasValue());
+        return ontology.resolve(proxyObject);
     }
 
     @Override
     public XOWLClass getClass(String classURI) {
-        return new XOWLClass(resolve(classURI));
+        XOWLEntity entity = getOntologyObject(classURI);
+        return (entity == null ? null : new XOWLClass(entity));
     }
 
     @Override
     public XOWLIndividual getIndividual(String individualURI) {
-        return new XOWLIndividual(resolve(individualURI));
+        XOWLEntity entity = getOntologyObject(individualURI);
+        return (entity == null ? null : new XOWLIndividual(entity));
     }
 
     @Override
     public XOWLObjectProperty getObjectProperty(String propertyURI) {
-        return new XOWLObjectProperty(resolve(propertyURI));
+        XOWLEntity entity = getOntologyObject(propertyURI);
+        return (entity == null ? null : new XOWLObjectProperty(entity));
     }
 
     @Override
     public XOWLDataProperty getDataProperty(String propertyURI) {
-        return new XOWLDataProperty(resolve(propertyURI));
+        XOWLEntity entity = getOntologyObject(propertyURI);
+        return (entity == null ? null : new XOWLDataProperty(entity));
     }
 
     @Override
     public XOWLProperty getProperty(String objectURI) {
-        XOWLEntity entity = resolve(objectURI);
-        if (entity.entity.getClassifiers().contains(repository.getProxy(Vocabulary.owlObjectProperty)))
+        XOWLEntity entity = getOntologyObject(objectURI);
+        if (entity == null)
+            return null;
+        if (entity.entity.getClassifiers().contains(repository.resolveProxy(Vocabulary.owlObjectProperty)))
             return new XOWLObjectProperty(entity);
         else
             return new XOWLDataProperty(entity);
@@ -233,9 +247,11 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
 
     @Override
     public List<XOWLClass> getClasses() {
+        Iterator<XOWLEntity> entities = getEntities();
         List<XOWLClass> result = new ArrayList<>();
-        for (XOWLEntity entity : entities.values()) {
-            if (entity.entity.getClassifiers().contains(repository.getProxy(Vocabulary.owlClass))) {
+        while (entities.hasNext()) {
+            XOWLEntity entity = entities.next();
+            if (entity.entity.getClassifiers().contains(repository.resolveProxy(Vocabulary.owlClass))) {
                 result.add(new XOWLClass(entity));
             }
         }
@@ -244,24 +260,26 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
 
     @Override
     public List<XOWLIndividual> getIndividuals() {
+        Iterator<XOWLEntity> entities = getEntities();
         List<XOWLIndividual> result = new ArrayList<>();
-        for (XOWLEntity entity : entities.values()) {
+        while (entities.hasNext()) {
+            XOWLEntity entity = entities.next();
             Collection<ProxyObject> classifiers = entity.entity.getClassifiers();
-            if (classifiers.contains(repository.getProxy(Vocabulary.owlNamedIndividual))) {
+            if (classifiers.contains(repository.resolveProxy(Vocabulary.owlNamedIndividual))) {
                 // an explicit named individual, how lucky!
                 result.add(new XOWLIndividual(entity));
                 continue;
             }
             // exclude explicit classes, object properties, data properties, annotation properties and datatypes
-            if (classifiers.contains(repository.getProxy(Vocabulary.owlClass)))
+            if (classifiers.contains(repository.resolveProxy(Vocabulary.owlClass)))
                 continue;
-            if (classifiers.contains(repository.getProxy(Vocabulary.owlObjectProperty)))
+            if (classifiers.contains(repository.resolveProxy(Vocabulary.owlObjectProperty)))
                 continue;
-            if (classifiers.contains(repository.getProxy(Vocabulary.owlDataProperty)))
+            if (classifiers.contains(repository.resolveProxy(Vocabulary.owlDataProperty)))
                 continue;
-            if (classifiers.contains(repository.getProxy(Vocabulary.rdfsDatatype)))
+            if (classifiers.contains(repository.resolveProxy(Vocabulary.rdfsDatatype)))
                 continue;
-            if (classifiers.contains(repository.getProxy(Vocabulary.owlAnnotatedProperty)))
+            if (classifiers.contains(repository.resolveProxy(Vocabulary.owlAnnotatedProperty)))
                 continue;
             result.add(new XOWLIndividual(entity));
         }
@@ -270,9 +288,11 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
 
     @Override
     public List<XOWLDataProperty> getDataProperties() {
+        Iterator<XOWLEntity> entities = getEntities();
         List<XOWLDataProperty> result = new ArrayList<>();
-        for (XOWLEntity entity : entities.values()) {
-            if (entity.entity.getClassifiers().contains(repository.getProxy(Vocabulary.owlDataProperty))) {
+        while (entities.hasNext()) {
+            XOWLEntity entity = entities.next();
+            if (entity.entity.getClassifiers().contains(repository.resolveProxy(Vocabulary.owlDataProperty))) {
                 result.add(new XOWLDataProperty(entity));
             }
         }
@@ -281,9 +301,11 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
 
     @Override
     public List<XOWLObjectProperty> getObjectProperties() {
+        Iterator<XOWLEntity> entities = getEntities();
         List<XOWLObjectProperty> result = new ArrayList<>();
-        for (XOWLEntity entity : entities.values()) {
-            if (entity.entity.getClassifiers().contains(repository.getProxy(Vocabulary.owlObjectProperty))) {
+        while (entities.hasNext()) {
+            XOWLEntity entity = entities.next();
+            if (entity.entity.getClassifiers().contains(repository.resolveProxy(Vocabulary.owlObjectProperty))) {
                 result.add(new XOWLObjectProperty(entity));
             }
         }
@@ -377,13 +399,28 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
      */
 
     /**
+     * Gets an iterator over the entities in this ontology
+     *
+     * @return An iterator over the entities in this ontology
+     */
+    protected Iterator<XOWLEntity> getEntities() {
+        Iterator<ProxyObject> proxies = repository.getProxiesIn(backend);
+        return new AdaptingIterator<>(proxies, new Adapter<XOWLEntity>() {
+            @Override
+            public <X> XOWLEntity adapt(X element) {
+                return resolve((ProxyObject) element);
+            }
+        });
+    }
+
+    /**
      * Resolves an entity
      *
      * @param uri The entity's uri
      * @return The entity
      */
     protected XOWLEntity resolve(String uri) {
-        ProxyObject proxyObject = repository.getProxy(uri);
+        ProxyObject proxyObject = repository.resolveProxy(uri);
         XOWLOntology ontology = ((XOWLContextManager) getContext()).get(proxyObject.getOntology().getHasIRI().getHasValue());
         return ontology.resolve(proxyObject);
     }
@@ -424,7 +461,7 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
      */
     public XOWLClass newClass() {
         ProxyObject proxy = repository.newObject(backend);
-        proxy.setValue(Vocabulary.rdfType, repository.getProxy(Vocabulary.owlClass));
+        proxy.setValue(Vocabulary.rdfType, repository.resolveProxy(Vocabulary.owlClass));
         XOWLEntity entity = new XOWLEntity(getTechnologyAdapter(), this, proxy);
         entities.put(proxy, entity);
         return new XOWLClass(entity);
@@ -437,7 +474,7 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
      */
     public XOWLObjectProperty newObjectProperty() {
         ProxyObject proxy = repository.newObject(backend);
-        proxy.setValue(Vocabulary.rdfType, repository.getProxy(Vocabulary.owlObjectProperty));
+        proxy.setValue(Vocabulary.rdfType, repository.resolveProxy(Vocabulary.owlObjectProperty));
         XOWLEntity entity = new XOWLEntity(getTechnologyAdapter(), this, proxy);
         entities.put(proxy, entity);
         return new XOWLObjectProperty(entity);
@@ -450,7 +487,7 @@ public class XOWLOntology extends XOWLObject implements IFlexoOntology<XOWLTechn
      */
     public XOWLDataProperty newDataProperty() {
         ProxyObject proxy = repository.newObject(backend);
-        proxy.setValue(Vocabulary.rdfType, repository.getProxy(Vocabulary.owlDataProperty));
+        proxy.setValue(Vocabulary.rdfType, repository.resolveProxy(Vocabulary.owlDataProperty));
         XOWLEntity entity = new XOWLEntity(getTechnologyAdapter(), this, proxy);
         entities.put(proxy, entity);
         return new XOWLDataProperty(entity);

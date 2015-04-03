@@ -89,6 +89,7 @@ public class XOWLContextManager extends TechnologyContextManager<XOWLTechnologyA
         if (result != null)
             return result;
         result = new XOWLOntology(this, repository, ontology);
+        result.setContext(this);
         ontologies.put(ontology.getHasIRI().getHasValue(), result);
         return result;
     }
