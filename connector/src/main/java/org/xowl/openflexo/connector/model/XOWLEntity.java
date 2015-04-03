@@ -134,14 +134,4 @@ public class XOWLEntity extends XOWLObject implements IFlexoOntologyConcept<XOWL
     public boolean equalsToConcept(IFlexoOntologyConcept<XOWLTechnologyAdapter> concept) {
         return false;
     }
-
-    @Override
-    public List<? extends IFlexoOntologyStructuralProperty<XOWLTechnologyAdapter>> getPropertiesTakingMySelfAsRange() {
-        return null;
-    }
-
-    @Override
-    public List<? extends IFlexoOntologyFeature<XOWLTechnologyAdapter>> getPropertiesTakingMySelfAsDomain() {
-        return null;
-    }
 }

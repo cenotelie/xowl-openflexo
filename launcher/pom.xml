@@ -82,6 +82,11 @@
 			<artifactId>connector</artifactId>
 			<version>1.7.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>org.xowl.openflexo</groupId>
+			<artifactId>connector-ui</artifactId>
+			<version>1.7.1-SNAPSHOT</version>
+		</dependency>
 		<!-- Fix for Log4J (version 1.2.13 or upper required) -->
 		<dependency>
 			<groupId>log4j</groupId>

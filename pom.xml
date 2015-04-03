@@ -34,6 +34,7 @@
 	</distributionManagement>
 	<modules>
 		<module>connector</module>
+		<module>connector-ui</module>
 		<module>launcher</module>
 	</modules>
 	<build>
