@@ -67,7 +67,7 @@ public class XOWLAdapterController extends TechnologyAdapterController<XOWLTechn
 
     @Override
     protected void initializeInspectors(FlexoController controller) {
-        inspectors = controller.loadInspectorGroup("XOWL", getFMLTechnologyAdapterInspectorGroup());
+        //inspectors = controller.loadInspectorGroup("XOWL", getFMLTechnologyAdapterInspectorGroup());
     }
 
     @Override
