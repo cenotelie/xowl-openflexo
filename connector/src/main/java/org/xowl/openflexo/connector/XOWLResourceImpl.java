@@ -36,6 +36,11 @@ import java.io.FileNotFoundException;
  * @author Laurent Wouters
  */
 public abstract class XOWLResourceImpl extends FlexoResourceImpl<XOWLOntology> implements XOWLResource {
+    /**
+     * The resource of the metamodel
+     */
+    private XOWLResource metamodelResource;
+
     @Override
     public XOWLOntology loadResourceData(IProgress progress) throws ResourceLoadingCancelledException, FileNotFoundException, FlexoException {
         return ((XOWLContextManager) getContext()).load(getURI());
@@ -48,12 +53,12 @@ public abstract class XOWLResourceImpl extends FlexoResourceImpl<XOWLOntology> i
 
     @Override
     public FlexoMetaModelResource<XOWLOntology, XOWLOntology, XOWLTechnologyAdapter> getMetaModelResource() {
-        return null;
+        return metamodelResource;
     }
 
     @Override
     public void setMetaModelResource(FlexoMetaModelResource<XOWLOntology, XOWLOntology, XOWLTechnologyAdapter> aMetaModelResource) {
-
+        metamodelResource = (XOWLResource) aMetaModelResource;
     }
 
     @Override
@@ -74,7 +79,9 @@ public abstract class XOWLResourceImpl extends FlexoResourceImpl<XOWLOntology> i
 
     @Override
     public XOWLOntology getMetaModelData() {
-        return getModelData();
+        if (metamodelResource == null)
+            return getModelData();
+        return metamodelResource.getModelData();
     }
 
     @Override

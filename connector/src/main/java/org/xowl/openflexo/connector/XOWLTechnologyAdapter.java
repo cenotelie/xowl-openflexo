@@ -179,11 +179,11 @@ public class XOWLTechnologyAdapter extends TechnologyAdapter {
         XOWLContextManager contextManager = getTechnologyContextManager();
         XOWLResourceImpl resource = (XOWLResourceImpl) factory.newInstance(XOWLResource.class);
         resource.setTechnologyAdapter(this);
+        resource.setURI(AbstractRepository.SCHEME_FILE + file.getAbsolutePath());
         resource.setContext(contextManager);
         resource.setFlexoIODelegate(FileFlexoIODelegate.FileFlexoIODelegateImpl.makeFileFlexoIODelegate(file, factory));
         resource.setServiceManager(getTechnologyAdapterService().getServiceManager());
         resource.setName(file.getName());
-        resource.setURI(AbstractRepository.SCHEME_FILE + file.getAbsolutePath());
         contextManager.register(resource);
         return resource;
     }
