@@ -83,8 +83,6 @@ public abstract class XOWLModelSlotImpl extends TypeAwareModelSlot.TypeAwareMode
             return "class";
         } else if (XOWLIndividualRole.class.isAssignableFrom(patternRoleClass)) {
             return "individual";
-        } else if (XOWLPropertyRole.class.isAssignableFrom(patternRoleClass)) {
-            return "property";
         } else if (XOWLDataPropertyRole.class.isAssignableFrom(patternRoleClass)) {
             return "dataProperty";
         } else if (XOWLObjectPropertyRole.class.isAssignableFrom(patternRoleClass)) {

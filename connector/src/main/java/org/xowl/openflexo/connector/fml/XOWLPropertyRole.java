@@ -33,19 +33,8 @@ import org.xowl.openflexo.connector.model.XOWLProperty;
  * @author Laurent Wouters
  */
 @ModelEntity
-@ImplementationClass(XOWLPropertyRole.XOWLPropertyRoleImpl.class)
 @XMLElement
 @FML("XOWLPropertyRole")
 public interface XOWLPropertyRole extends PropertyRole<XOWLProperty> {
-    /**
-     * The default implementation
-     */
-    abstract class XOWLPropertyRoleImpl extends PropertyRoleImpl<XOWLProperty> implements XOWLPropertyRole {
-        /**
-         * Initializes this instance
-         */
-        public XOWLPropertyRoleImpl() {
-            super();
-        }
-    }
+
 }

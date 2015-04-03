@@ -37,7 +37,7 @@ import org.xowl.openflexo.connector.model.XOWLOntology;
  *
  * @author Laurent Wouters
  */
-@DeclareFlexoRoles({XOWLIndividualRole.class, XOWLClassRole.class, XOWLDataPropertyRole.class, XOWLObjectPropertyRole.class, XOWLPropertyRole.class})
+@DeclareFlexoRoles({XOWLIndividualRole.class, XOWLClassRole.class, XOWLDataPropertyRole.class, XOWLObjectPropertyRole.class})
 @DeclareEditionActions({AddXOWLIndividual.class, AddXOWLClass.class})
 @ModelEntity
 @ImplementationClass(XOWLModelSlotImpl.class)
