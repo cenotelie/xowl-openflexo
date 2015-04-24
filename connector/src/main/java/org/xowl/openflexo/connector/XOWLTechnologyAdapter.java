@@ -45,8 +45,8 @@ import java.util.logging.Logger;
  *
  * @author Laurent wouters
  */
-@DeclareModelSlots({XOWLModelSlot.class})
-@DeclareRepositoryType({XOWLModelRepository.class})
+@DeclareModelSlots({XOWLModelSlot.class, XOWLSinkModelSlot.class})
+@DeclareRepositoryType({XOWLModelRepository.class, XOWLMetamodelRepository.class})
 public class XOWLTechnologyAdapter extends TechnologyAdapter {
     /**
      * The binding factory for this technology adapter
@@ -183,7 +183,7 @@ public class XOWLTechnologyAdapter extends TechnologyAdapter {
         resource.setContext(contextManager);
         resource.setFlexoIODelegate(FileFlexoIODelegate.FileFlexoIODelegateImpl.makeFileFlexoIODelegate(file, factory));
         resource.setServiceManager(getTechnologyAdapterService().getServiceManager());
-        resource.setName(file.getName());
+        resource.initName(file.getName());
         contextManager.register(resource);
         return resource;
     }
@@ -253,7 +253,7 @@ public class XOWLTechnologyAdapter extends TechnologyAdapter {
         resource.setContext(contextManager);
         resource.setFlexoIODelegate(FileFlexoIODelegate.FileFlexoIODelegateImpl.makeFileFlexoIODelegate(file, factory));
         resource.setServiceManager(getTechnologyAdapterService().getServiceManager());
-        resource.setName(file.getName());
+        resource.initName(file.getName());
         resource.setURI(AbstractRepository.SCHEME_FILE + file.getAbsolutePath());
         resource.setResourceData(contextManager.get(ontologyURI));
         contextManager.register(resource);
